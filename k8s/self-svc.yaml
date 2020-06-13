@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: self
+  name: self
+  namespace: self
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: http
+    port: 8000
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    run: self
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - hostname: nb-96-126-119-176.dallas.nodebalancer.linode.com
+      ip: 96.126.119.176

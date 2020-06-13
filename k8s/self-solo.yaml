@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: self-solo
+  name: self-solo
+spec:
+  containers:
+  - image: runlevl4/selfdemo:1.0
+    name: app
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}

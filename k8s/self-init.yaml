@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: self-init
+  name: self-init
+spec:
+  containers:
+  - image: runlevl4/selfdemo:1.0
+    name: app
+    resources: {}
+  initContainers:
+  - name: init
+    image: busybox:1.28
+    command: ['sh', '-c', "echo demo of init containers; sleep 10"]
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}
