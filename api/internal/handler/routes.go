@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-	"os/exec"
 )
 
 const content = "Content-Type"
@@ -31,21 +30,11 @@ type InfoResponse struct {
 func Info(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set(content, contentJSON)
 	w.WriteHeader(http.StatusOK)
-	// fmt.Printf("HOSTNAME: %s\n", os.Getenv("HOSTNAME"))
-	// fmt.Fprintf(w, `{"status": "UP"}`)
-	cmd, _ := exec.LookPath("hostname")
-	h := &exec.Cmd{
-		Path: cmd,
-		Args: []string{cmd},
-		Stdout: os.Stdout,
-		Stderr: os.Stderr,
-	}
-	fmt.Printf("host: %v\n", h.String())
+
 	// Build response
 	host, _ := os.Hostname()
 	ir := InfoResponse{
-		Status: "UP",
-		// Pod:       os.Getenv("HOSTNAME"),
+		Status:    "UP",
 		Pod:       host,
 		PodIP:     os.Getenv("KUBERNETES_NAMESPACE_POD_IP"),
 		Node:      os.Getenv("KUBERNETES_NODENAME"),
