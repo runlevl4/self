@@ -6,7 +6,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/gorilla/mux"	
+	"github.com/gorilla/mux"
+	"github.com/zenazn/goji/graceful"	
 	"github.com/runlevl4/self/api/internal/handler"
 )
 
@@ -26,7 +27,7 @@ func run() error {
 	r.HandleFunc("/info", loggingMiddleware(handler.Info)).Methods("GET")
 
 	log.Printf("%s : Starting server on port 8000", time.Now().Format(time.RFC3339))
-	log.Fatal(http.ListenAndServe(":8000", r))
+	log.Fatal(graceful.ListenAndServe(":8000", r))
 
 	return nil
 }
